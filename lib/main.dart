@@ -29,6 +29,72 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class DisasterTypeButton extends StatelessWidget {
+  DisasterTypeButton({
+    required this.name,
+    // @required this.onPress,
+    required this.progress,
+  });
+
+  final String name;
+  // final Function onPress;
+  final double progress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: InkWell(
+        splashColor: Colors.blue.withAlpha(30),
+        onTap: (){
+          debugPrint("Hoge");
+        },
+        child: SizedBox(
+          width: 300,
+          height: 100,
+          child: Column(
+              children: <Widget>[
+                Row(children: [
+                  Container(
+                    margin: const EdgeInsets.all(20),
+                    child: const Icon(
+                      Icons.favorite,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text(
+                          name,
+                          style: Theme.of(context).textTheme.headline6,
+                          textAlign: TextAlign.left,
+                        ),
+                        Text((progress*100).toString() + "%",
+                          style: Theme.of(context).textTheme.subtitle1,),
+                      ],
+                  ),
+                  )
+                ],),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  color: Colors.blue,
+                  child: LinearProgressIndicator(
+                    value: progress,
+                    color: Colors.red,
+                    minHeight: 20,
+                  ),
+                ),
+
+              ]
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// TODO tab change function
+
 
 
 // widgetクラスとstateクラスのセットで表される
@@ -54,9 +120,16 @@ class MyHomePage extends StatefulWidget {
 // stateクラス
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  int _selectedIndex = 0;
   var _title = "potato";
   final List<String> entries = <String>['A', 'B', 'C'];
   final List<int> colorCodes = <int>[600, 500, 100];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -102,73 +175,26 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: ListView(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
+
           children: <Widget>[
 
             Text(
               'In Progress',
               style: Theme.of(context).textTheme.headline4,
             ),
-            Text(
-              _title,
+            DisasterTypeButton(
+                name: "Hey",
+                // onPress: (){debugPrint("ege");},
+                progress: 0.4
             ),
+            // Text(
+            //   _title,
+            // ),
             Text(
               "Review",
               style: Theme.of(context).textTheme.headline4,
             ),
-            Card(
-              child: InkWell(
-                splashColor: Colors.blue.withAlpha(30),
-                onTap: (){
-                  debugPrint("Hoge");
-                },
-                child: SizedBox(
-                  width: 300,
-                  height: 100,
-                  child: Column(
-                      children: <Widget>[
-                        Row(children: [
-                          Container(
-                            margin: const EdgeInsets.all(20),
-                            child: const Icon(
-                              Icons.favorite,
-                            ),
-                          ),
-                          Column(
-                            children: [
-                            Text(
-                                "ProgramNameSample",
-                              style: Theme.of(context).textTheme.headline6,
-                              textAlign: TextAlign.center,
-                            ),
-                            Text("40%",
-                            style: Theme.of(context).textTheme.subtitle1,),
-                            ],
-                          ),
-                        ],),
-                        const LinearProgressIndicator(
-                          value: 0.4,
-                          color: Colors.red,
-                          minHeight: 20,
-                        ),
-                      ]
-                  ),
-                ),
-              ),
-            ),
+
           ],
         ),
       ),
@@ -193,6 +219,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         selectedItemColor: Colors.red[900],
+        onTap: _onItemTapped,
+        currentIndex: _selectedIndex,
       ),
     );
   }
