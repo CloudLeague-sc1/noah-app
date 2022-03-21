@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'LearningPathwayScreen.dart';
+
 // 学習分野のボタンを表示するウィジェット
 class DisasterTypeButton extends StatelessWidget {
   const DisasterTypeButton({Key? key, required this.name, required this.progress}) : super(key: key);
@@ -14,7 +16,10 @@ class DisasterTypeButton extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: (){
-          debugPrint("Hoge");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LearningPathwayScreen(title: "地震",)),
+          );
         },
         child: SizedBox(
           width: 300,
@@ -25,12 +30,12 @@ class DisasterTypeButton extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.all(20),
                     child: const Icon(
-                      Icons.favorite,
+                      Icons.emergency,
                     ),
                   ),
                   Expanded(
                     flex: 1,
-                    child: Column(
+                    child: Row(
                       children: [
                         Text(
                           name,
@@ -48,7 +53,7 @@ class DisasterTypeButton extends StatelessWidget {
                   color: Colors.blue,
                   child: LinearProgressIndicator(
                     value: progress,
-                    color: Colors.red,
+                    color: Colors.lightGreen,
                     minHeight: 20,
                   ),
                 ),
@@ -81,13 +86,10 @@ class LearnScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headline4,
           ),
           const DisasterTypeButton(
-              name: "Hey",
-              // onPress: (){debugPrint("ege");},
-              progress: 0.4
+              name: "Earthquake",
+              progress: 0.4,
           ),
-          // Text(
-          //   _title,
-          // ),
+
           Text(
             "Review",
             style: Theme.of(context).textTheme.headline4,
