@@ -1,16 +1,31 @@
 # noah
 
-A new Flutter project.
+noah app repository.
 
-## Getting Started
+## Development 
+### Requirements
+- Flutter 
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+### Run
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```
+$ flutter run
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Test
+
+```
+$ flutter test
+```
+
+### Branch Rules
+
+| Usage | Branch Name | Base Branch |
+| --- | --- | --- |
+| Production | `master` | N/A |
+| Latest update | `develop` | `master` |
+| Feature development | `feature/{feature_name}` | `develop` |
+| Bug fix | `bugfix/{issue_number}-{issue_name}` | `develop` |
+| Documentation fix | `docs/{issue_number}-{issue_name}` | `develop` |
+| Hotfixes | `hotfix/{patch_title}` | `master` |
