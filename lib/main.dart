@@ -33,11 +33,6 @@ class MyApp extends StatelessWidget {
 }
 
 
-
-// TODO tab change function
-
-
-
 // widgetクラスとstateクラスのセットで表される
 // widgetクラス
 class MyHomePage extends StatefulWidget {
@@ -60,9 +55,7 @@ class MyHomePage extends StatefulWidget {
 
 // stateクラス
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   int _selectedIndex = 0;
-  var _title = "potato";
   final List<String> entries = <String>['A', 'B', 'C'];
   final List<int> colorCodes = <int>[600, 500, 100];
 
@@ -72,30 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      if (_counter >= 10) {
-        _counter = 0;
-      } else {
-        _counter++;
-      }
-    });
-  }
-
-  void _potatoSalad() {
-    setState(() {
-      if (_title == "potato") {
-        _title = "potato salad";
-      } else {
-        _title = "potato";
-      }
-    });
-  }
 
   static const List<Widget> _widgetOptions = <Widget>[
     LearnScreen(),
@@ -118,11 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _potatoSalad,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
