@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:noah/screens/AccountScreen.dart';
+import 'package:noah/screens/EmergencyScreen.dart';
+import 'package:noah/screens/LearnScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,69 +32,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class DisasterTypeButton extends StatelessWidget {
-  DisasterTypeButton({
-    required this.name,
-    // @required this.onPress,
-    required this.progress,
-  });
 
-  final String name;
-  // final Function onPress;
-  final double progress;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        splashColor: Colors.blue.withAlpha(30),
-        onTap: (){
-          debugPrint("Hoge");
-        },
-        child: SizedBox(
-          width: 300,
-          height: 100,
-          child: Column(
-              children: <Widget>[
-                Row(children: [
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    child: const Icon(
-                      Icons.favorite,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        Text(
-                          name,
-                          style: Theme.of(context).textTheme.headline6,
-                          textAlign: TextAlign.left,
-                        ),
-                        Text((progress*100).toString() + "%",
-                          style: Theme.of(context).textTheme.subtitle1,),
-                      ],
-                  ),
-                  )
-                ],),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  color: Colors.blue,
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    color: Colors.red,
-                    minHeight: 20,
-                  ),
-                ),
-
-              ]
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 // TODO tab change function
 
@@ -156,6 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  static const List<Widget> _widgetOptions = <Widget>[
+    LearnScreen(),
+    EmergencyScreen(),
+    AccountScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -170,34 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Align(
-        alignment: Alignment.topLeft,
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: ListView(
-
-          children: <Widget>[
-
-            Text(
-              'In Progress',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            DisasterTypeButton(
-                name: "Hey",
-                // onPress: (){debugPrint("ege");},
-                progress: 0.4
-            ),
-            // Text(
-            //   _title,
-            // ),
-            Text(
-              "Review",
-              style: Theme.of(context).textTheme.headline4,
-            ),
-
-          ],
-        ),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       floatingActionButton: FloatingActionButton(
         onPressed: _potatoSalad,
         tooltip: 'Increment',
