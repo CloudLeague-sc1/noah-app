@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AccountScreen extends StatelessWidget {
-  const AccountScreen({Key? key}) : super(key: key);
+class EmergencyTab extends StatelessWidget {
+  const EmergencyTab({Key? key}) : super(key: key);
 
 
   @override
@@ -15,7 +15,7 @@ class AccountScreen extends StatelessWidget {
         children: <Widget>[
 
           Text(
-            'Account Info',
+            'Emergency',
             style: Theme.of(context).textTheme.headline4,
           ),
 

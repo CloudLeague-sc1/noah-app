@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:noah/screens/AccountScreen.dart';
-import 'package:noah/screens/EmergencyScreen.dart';
-import 'package:noah/screens/LearnScreen.dart';
+import 'package:noah/tabs/setting_tab.dart';
+import 'package:noah/tabs/emergency_tab.dart';
+import 'package:noah/tabs/learn_tab.dart';
 
 void main() {
   runApp(const MyApp());
@@ -60,9 +60,7 @@ class MyHomePage extends StatefulWidget {
 
 // stateクラス
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   int _selectedIndex = 0;
-  var _title = "potato";
   final List<String> entries = <String>['A', 'B', 'C'];
   final List<int> colorCodes = <int>[600, 500, 100];
 
@@ -72,35 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      if (_counter >= 10) {
-        _counter = 0;
-      } else {
-        _counter++;
-      }
-    });
-  }
 
-  void _potatoSalad() {
-    setState(() {
-      if (_title == "potato") {
-        _title = "potato salad";
-      } else {
-        _title = "potato";
-      }
-    });
-  }
 
   static const List<Widget> _widgetOptions = <Widget>[
-    LearnScreen(),
-    EmergencyScreen(),
-    AccountScreen(),
+    LearnTab(),
+    EmergencyTab(),
+    SettingTab(),
   ];
 
   @override
@@ -118,20 +93,16 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _potatoSalad,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label:  'Learn'
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.doorbell),
-              label: 'Emergency'
+
+    bottomNavigationBar: BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label:  'Learn'
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.doorbell),
+            label: 'Emergency'
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
