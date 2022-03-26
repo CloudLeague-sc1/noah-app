@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:noah/tabs/setting_tab.dart';
+import 'package:noah/tabs/emergency_tab.dart';
+import 'package:noah/tabs/learn_tab.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,69 +32,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class DisasterTypeButton extends StatelessWidget {
-  DisasterTypeButton({
-    required this.name,
-    // @required this.onPress,
-    required this.progress,
-  });
 
-  final String name;
-  // final Function onPress;
-  final double progress;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        splashColor: Colors.blue.withAlpha(30),
-        onTap: (){
-          debugPrint("Hoge");
-        },
-        child: SizedBox(
-          width: 300,
-          height: 100,
-          child: Column(
-              children: <Widget>[
-                Row(children: [
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    child: const Icon(
-                      Icons.favorite,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        Text(
-                          name,
-                          style: Theme.of(context).textTheme.headline6,
-                          textAlign: TextAlign.left,
-                        ),
-                        Text((progress*100).toString() + "%",
-                          style: Theme.of(context).textTheme.subtitle1,),
-                      ],
-                  ),
-                  )
-                ],),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  color: Colors.blue,
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    color: Colors.red,
-                    minHeight: 20,
-                  ),
-                ),
-
-              ]
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 // TODO tab change function
 
@@ -119,9 +60,7 @@ class MyHomePage extends StatefulWidget {
 
 // stateクラス
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   int _selectedIndex = 0;
-  var _title = "potato";
   final List<String> entries = <String>['A', 'B', 'C'];
   final List<int> colorCodes = <int>[600, 500, 100];
 
@@ -131,30 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      if (_counter >= 10) {
-        _counter = 0;
-      } else {
-        _counter++;
-      }
-    });
-  }
 
-  void _potatoSalad() {
-    setState(() {
-      if (_title == "potato") {
-        _title = "potato salad";
-      } else {
-        _title = "potato";
-      }
-    });
-  }
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    LearnTab(),
+    EmergencyTab(),
+    SettingTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -170,48 +92,17 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Align(
-        alignment: Alignment.topLeft,
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: ListView(
+      body: _widgetOptions.elementAt(_selectedIndex),
 
-          children: <Widget>[
-
-            Text(
-              'In Progress',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            DisasterTypeButton(
-                name: "Hey",
-                // onPress: (){debugPrint("ege");},
-                progress: 0.4
-            ),
-            // Text(
-            //   _title,
-            // ),
-            Text(
-              "Review",
-              style: Theme.of(context).textTheme.headline4,
-            ),
-
-          ],
+    bottomNavigationBar: BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label:  'Learn'
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _potatoSalad,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label:  'Learn'
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.doorbell),
-              label: 'Emergency'
+        BottomNavigationBarItem(
+            icon: Icon(Icons.doorbell),
+            label: 'Emergency'
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
