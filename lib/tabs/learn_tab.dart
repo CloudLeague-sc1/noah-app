@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'LearningPathwayScreen.dart';
+import 'course.dart';
 
 // 学習分野のボタンを表示するウィジェット
 class DisasterTypeButton extends StatelessWidget {
@@ -20,7 +20,7 @@ class DisasterTypeButton extends StatelessWidget {
         onTap: (){
           Navigator.push(
             context,
-            CupertinoPageRoute(builder: (context) => const LearningPathwayScreen(title: "地震",)),
+            CupertinoPageRoute(builder: (context) => const CourseScreen(title: "地震",)),
           );
         },
         child: Container(

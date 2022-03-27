@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:noah/tabs/LearningDetailScreen.dart';
+import 'package:noah/tabs/detail_page.dart';
 
 class LearnDetailInfo extends StatelessWidget {
   const LearnDetailInfo({Key? key, required this.title,
@@ -57,8 +57,8 @@ class LearnDetailInfo extends StatelessWidget {
 
 }
 
-class LearnStepContent extends StatelessWidget {
-  const LearnStepContent({Key? key, required this.title, required this.text}) : super(key: key);
+class CourseContent extends StatelessWidget {
+  const CourseContent({Key? key, required this.title, required this.text}) : super(key: key);
   final String title, text;
 
   @override
@@ -108,15 +108,15 @@ class LearnStepContent extends StatelessWidget {
 
 }
 
-class LearnStep extends StatefulWidget {
-  const LearnStep({Key? key}) : super(key: key);
+class Course extends StatefulWidget {
+  const Course({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _LearnStepState();
+  State<StatefulWidget> createState() => _CourseState();
 
 }
 
-class _LearnStepState extends State<LearnStep> {
+class _CourseState extends State<Course> {
   int _index = 0;
 
   @override
@@ -146,7 +146,7 @@ class _LearnStepState extends State<LearnStep> {
         Step(title: const Text('地震とは'),
             content: Container(
               alignment: Alignment.centerLeft,
-              child: const LearnStepContent(
+              child: const CourseContent(
                 title: "地震とは",
                 text: "HogeHoge",
               ),
@@ -155,7 +155,7 @@ class _LearnStepState extends State<LearnStep> {
         Step(title: const Text('緊急地震速報'),
             content: Container(
               alignment: Alignment.centerLeft,
-              child: const LearnStepContent(
+              child: const CourseContent(
                 title: "緊急地震速報",
                 text: "Hogehoge",
               ),
@@ -168,8 +168,8 @@ class _LearnStepState extends State<LearnStep> {
 }
 
 
-class LearningPathwayScreen extends StatelessWidget {
-  const LearningPathwayScreen({Key? key, required this.title}) : super(key: key);
+class CourseScreen extends StatelessWidget {
+  const CourseScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -190,7 +190,7 @@ class LearningPathwayScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             LearnDetailInfo(title: title, streak: 10, steps: 3, maxSteps: 10,),
-            const LearnStep(),
+            const Course(),
 
           ],
         ),
