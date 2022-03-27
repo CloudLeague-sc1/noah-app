@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'LearningPathwayScreen.dart';
@@ -18,7 +19,7 @@ class DisasterTypeButton extends StatelessWidget {
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const LearningPathwayScreen(title: "地震",)),
+            CupertinoPageRoute(builder: (context) => const LearningPathwayScreen(title: "地震",)),
           );
         },
         child: SizedBox(

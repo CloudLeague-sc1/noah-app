@@ -69,7 +69,7 @@ class LearnStepContent extends StatelessWidget {
         onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LearningScreen(title: title,)),
+            CupertinoPageRoute(builder: (context) => LearningScreen(title: title,)),
           );
         },
         child: SizedBox(
