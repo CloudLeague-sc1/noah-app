@@ -10,6 +10,7 @@ noah app repository.
 ### Run
 
 ```
+$ make fetch-content
 $ flutter run
 ```
 
