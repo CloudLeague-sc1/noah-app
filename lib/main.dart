@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:noah/screens/AccountScreen.dart';
-import 'package:noah/screens/EmergencyScreen.dart';
-import 'package:noah/screens/LearnScreen.dart';
+import 'package:noah/tabs/setting_tab.dart';
+import 'package:noah/tabs/emergency_tab.dart';
+import 'package:noah/tabs/learn_tab.dart';
 
 void main() {
   runApp(const MyApp());
@@ -68,10 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
+
   static const List<Widget> _widgetOptions = <Widget>[
-    LearnScreen(),
-    EmergencyScreen(),
-    AccountScreen(),
+    LearnTab(),
+    EmergencyTab(),
+    SettingTab(),
   ];
 
   @override
@@ -91,15 +92,15 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
 
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label:  'Learn'
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.doorbell),
-              label: 'Emergency'
+    bottomNavigationBar: BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label:  'Learn'
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.doorbell),
+            label: 'Emergency'
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.person),

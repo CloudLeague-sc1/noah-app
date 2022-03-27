@@ -14,6 +14,7 @@ class DisasterTypeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.all(20),
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: (){
@@ -22,9 +23,7 @@ class DisasterTypeButton extends StatelessWidget {
             CupertinoPageRoute(builder: (context) => const LearningPathwayScreen(title: "地震",)),
           );
         },
-        child: SizedBox(
-          width: 300,
-          height: 100,
+        child: Container(
           child: Column(
               children: <Widget>[
                 Row(children: [
@@ -68,8 +67,8 @@ class DisasterTypeButton extends StatelessWidget {
 }
 
 
-class LearnScreen extends StatelessWidget {
-  const LearnScreen({Key? key}) : super(key: key);
+class LearnTab extends StatelessWidget {
+  const LearnTab({Key? key}) : super(key: key);
 
 
   @override

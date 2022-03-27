@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:noah/screens/LearningDetailScreen.dart';
+import 'package:noah/tabs/LearningDetailScreen.dart';
 
 class LearnDetailInfo extends StatelessWidget {
   const LearnDetailInfo({Key? key, required this.title,
