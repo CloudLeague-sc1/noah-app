@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:noah/tabs/setting_tab.dart';
 import 'package:noah/tabs/emergency_tab.dart';
@@ -33,11 +34,6 @@ class MyApp extends StatelessWidget {
 }
 
 
-
-// TODO tab change function
-
-
-
 // widgetクラスとstateクラスのセットで表される
 // widgetクラス
 class MyHomePage extends StatefulWidget {
@@ -57,6 +53,7 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+
 
 // stateクラス
 class _MyHomePageState extends State<MyHomePage> {
@@ -87,10 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
+      appBar: CupertinoNavigationBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        middle: Text(widget.title),
+        border: Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
 
