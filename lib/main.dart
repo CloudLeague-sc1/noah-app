@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:noah/tabs/setting_tab.dart';
 import 'package:noah/tabs/emergency_tab.dart';
 import 'package:noah/tabs/learn_tab.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp()
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -66,8 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedIndex = index;
     });
   }
-
-
 
   static const List<Widget> _widgetOptions = <Widget>[
     LearnTab(),
