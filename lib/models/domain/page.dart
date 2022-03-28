@@ -5,20 +5,20 @@ import 'references.dart';
 
 enum PageType { page, quiz }
 
-
-class PageBase{
-   PageType type = PageType.page;
-   PageBase(PageType type);
+class PageBase {
+  PageType type = PageType.page;
+  PageBase(PageType type);
 }
 
-class Page extends PageBase{
+class Page extends PageBase {
   MultilingualRichText text = MultilingualRichText.empty();
   Media? media;
   Annotation? annotation;
   List<ReferenceItem>? references;
 
-  Page(this.text, this.media, this.annotation, this.references):super(PageType.page);
-  Page.fromJson(Map<String, dynamic> json):super(PageType.page) {
+  Page(this.text, this.media, this.annotation, this.references)
+      : super(PageType.page);
+  Page.fromJson(Map<String, dynamic> json) : super(PageType.page) {
     if (json['text'] is Map<String, dynamic>) {
       text = MultilingualRichText.fromJson(json['text']);
     }
@@ -32,48 +32,51 @@ class Page extends PageBase{
     }
 
     if (json['references'] is List) {
-      references = json['references'].map((e) => parseReferenceItem).toList().cast<ReferenceItem>();
+      references = json['references']
+          .map((e) => parseReferenceItem)
+          .toList()
+          .cast<ReferenceItem>();
     }
   }
 }
 
+enum QuizType { multipleChoice }
 
-enum QuizType{
-  multipleChoice
-}
-
-class Quiz extends PageBase{
+class Quiz extends PageBase {
   QuizType quizType = QuizType.multipleChoice;
-  Quiz(this.quizType):super(PageType.quiz);
+  Quiz(this.quizType) : super(PageType.quiz);
 }
 
-
-class QuizOption{
-  bool correct=false;
-  MultilingualText label=MultilingualText.empty();
-  MultilingualRichText comment=MultilingualRichText.empty();
+class QuizOption {
+  bool correct = false;
+  MultilingualText label = MultilingualText.empty();
+  MultilingualRichText comment = MultilingualRichText.empty();
 
   QuizOption(this.correct, this.label, this.comment);
-  QuizOption.fromJson(Map<String,dynamic> json){
+  QuizOption.fromJson(Map<String, dynamic> json) {
     correct = json['correct'];
     label = MultilingualText.fromJson(json['label']);
     comment = MultilingualRichText.fromJson(json['comment']);
   }
 }
 
-class MultipleChoiceQuize extends Quiz{
-    MultilingualRichText question = MultilingualRichText.empty();
-    List<QuizOption> options = [];
-    MultipleChoiceQuize(this.question,this.options):super(QuizType.multipleChoice);
-    MultipleChoiceQuize.fromJson(Map<String,dynamic> json):super(QuizType.multipleChoice){
-      question = MultilingualRichText.fromJson(json['question']);
-      options = json['options'].map((e)=>QuizOption.fromJson(e)).toList().cast<QuizOption>();
-    }
+class MultipleChoiceQuize extends Quiz {
+  MultilingualRichText question = MultilingualRichText.empty();
+  List<QuizOption> options = [];
+  MultipleChoiceQuize(this.question, this.options)
+      : super(QuizType.multipleChoice);
+  MultipleChoiceQuize.fromJson(Map<String, dynamic> json)
+      : super(QuizType.multipleChoice) {
+    question = MultilingualRichText.fromJson(json['question']);
+    options = json['options']
+        .map((e) => QuizOption.fromJson(e))
+        .toList()
+        .cast<QuizOption>();
+  }
 }
 
-
-PageBase parseQuiz(Map<String,dynamic> json){
-   if (json['quiz_type'] is! String) {
+PageBase parseQuiz(Map<String, dynamic> json) {
+  if (json['quiz_type'] is! String) {
     throw Exception("Quiz type is not string");
   }
 
@@ -86,8 +89,8 @@ PageBase parseQuiz(Map<String,dynamic> json){
   }
 }
 
-PageBase parsePage(Map<String,dynamic> json){
-   if (json['type'] is! String) {
+PageBase parsePage(Map<String, dynamic> json) {
+  if (json['type'] is! String) {
     throw Exception("Page type is not string");
   }
 

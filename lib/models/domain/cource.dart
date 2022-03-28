@@ -10,7 +10,8 @@ class Cource {
   Cource.fromJson(Map<String, dynamic> json) {
     title = MultilingualText.fromJson(json['title']);
     description = MultilingualText.fromJson(json['description']);
-    lessons = json['lessons'].map((e) => Lesson.fromJson(e)).toList().cast<Lesson>();
+    lessons =
+        json['lessons'].map((e) => Lesson.fromJson(e)).toList().cast<Lesson>();
   }
 
   Cource.empty();

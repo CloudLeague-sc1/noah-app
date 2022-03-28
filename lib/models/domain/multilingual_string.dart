@@ -3,7 +3,6 @@ class MultilingualText {
   String ja = "";
   String en = "";
   MultilingualText.fromJson(Map<String, dynamic> json) {
-
     if (json['ja'] is Map || json['ja'] is List) {
       throw Exception('Multilingual String Error: ja is not string-ish');
     }
@@ -35,7 +34,6 @@ class MultilingualRichText {
 }
 
 RichTextInner parseRichText(dynamic json) {
-
   if (json is String) {
     return RichTextString(json);
   }
