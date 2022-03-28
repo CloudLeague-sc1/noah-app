@@ -10,16 +10,20 @@ class CourseButton extends StatelessWidget {
   const CourseButton({Key? key, required this.buttonInfo}) : super(key: key);
   final CourseInformation buttonInfo;
 
+
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(20),
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
-        onTap: (){
+        onTap: () {
           Navigator.push(
             context,
-            CupertinoPageRoute(builder: (context) => const CourseScreen(title: "地震",)),
+            CupertinoPageRoute(
+                builder: (context) => const CourseScreen(
+                      title: "地震",
+                    )),
           );
         },
         child: SizedBox(
@@ -82,6 +86,7 @@ class CourseButton extends StatelessWidget {
                 ),
               ]
           ),
+
         ),
       ),
     );
@@ -163,16 +168,16 @@ class CourseInformation {
 //   }
 // }
 
+
 class LearnTab extends StatelessWidget {
   const LearnTab({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
     return Column(
 
-        children: <Widget>[
 
+        children: <Widget>[
           Text(
             'In Progress',
             style: Theme.of(context).textTheme.headline4,
@@ -186,6 +191,7 @@ class LearnTab extends StatelessWidget {
           // const Expanded(child: CourseButtons(title: "In Progress"),),
           
           CourseButton(buttonInfo: CourseInformation("TSUNAMI", 0.2, Colors.lightBlue))
+
 
         ],
       );

@@ -5,8 +5,11 @@ import 'package:noah/tabs/detail_page.dart';
 // TODO change class name
 
 class LearnDetailInfo extends StatelessWidget {
-  const LearnDetailInfo({Key? key, required this.title,
-    required this. streak, required this.steps,
+  const LearnDetailInfo({
+    Key? key,
+    required this.title,
+    required this.streak,
+    required this.steps,
     required this.maxSteps,
   });
 
@@ -18,49 +21,50 @@ class LearnDetailInfo extends StatelessWidget {
     return SizedBox(
       width: 300,
       height: 100,
-      child: Column(
-          children: <Widget>[
-            Row(children: [
-              Container(
-                margin: const EdgeInsets.all(20),
-                child: const Icon(
-                  Icons.favorite,
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.headline6,
-                      textAlign: TextAlign.left,
-                    ),
-                    Text("days streak",
-                      style: Theme.of(context).textTheme.subtitle1,),
-                  ],
-                ),
-              )
-            ],),
+      child: Column(children: <Widget>[
+        Row(
+          children: [
             Container(
-              alignment: Alignment.bottomCenter,
-              color: Colors.blue,
-              child: LinearProgressIndicator(
-                value: 0.1,
-                color: Colors.red,
-                minHeight: 20,
+              margin: const EdgeInsets.all(20),
+              child: const Icon(
+                Icons.favorite,
               ),
             ),
-
-          ]
-      ),
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.headline6,
+                    textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    "days streak",
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        Container(
+          alignment: Alignment.bottomCenter,
+          color: Colors.blue,
+          child: LinearProgressIndicator(
+            value: 0.1,
+            color: Colors.red,
+            minHeight: 20,
+          ),
+        ),
+      ]),
     );
   }
-
 }
 
 class LessonContent extends StatelessWidget {
   const LessonContent({Key? key, required this.title, required this.text}) : super(key: key);
+
   final String title, text;
 
   @override
@@ -68,46 +72,46 @@ class LessonContent extends StatelessWidget {
     return Card(
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
-        onTap: (){
+        onTap: () {
           Navigator.push(
             context,
-            CupertinoPageRoute(builder: (context) => LearningScreen(title: title,)),
+            CupertinoPageRoute(
+                builder: (context) => LearningScreen(
+                      title: title,
+                    )),
           );
         },
         child: SizedBox(
           width: 300,
           height: 100,
-          child: Column(
-              children: <Widget>[
-                Row(children: [
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    child: const Icon(
-                      Icons.favorite,
-                    ),
+          child: Column(children: <Widget>[
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(20),
+                  child: const Icon(
+                    Icons.favorite,
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        Text(
-                          text,
-                          style: Theme.of(context).textTheme.bodyText1,
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
-                    ),
-                  )
-                ],),
-
-              ]
-          ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      Text(
+                        text,
+                        style: Theme.of(context).textTheme.bodyText1,
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ]),
         ),
       ),
     );
   }
-
-
 }
 
 class Course extends StatefulWidget {
@@ -115,7 +119,6 @@ class Course extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _CourseState();
-
 }
 
 class _CourseState extends State<Course> {
@@ -145,36 +148,33 @@ class _CourseState extends State<Course> {
         });
       },
       steps: [
-        Step(title: const Text('地震とは'),
+        Step(
+            title: const Text('地震とは'),
             content: Container(
               alignment: Alignment.centerLeft,
               child: const LessonContent(
                 title: "地震とは",
                 text: "HogeHoge",
               ),
-            )
-        ),
-        Step(title: const Text('緊急地震速報'),
+            )),
+        Step(
+            title: const Text('緊急地震速報'),
             content: Container(
               alignment: Alignment.centerLeft,
               child: const LessonContent(
                 title: "緊急地震速報",
                 text: "Hogehoge",
               ),
-            )
-        ),
+            )),
       ],
-
     );
   }
 }
-
 
 class CourseScreen extends StatelessWidget {
   const CourseScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
-
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +183,8 @@ class CourseScreen extends StatelessWidget {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         middle: Text(title),
-        border: Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
+        border:
+            Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
       ),
       body: Align(
         alignment: Alignment.topLeft,
@@ -191,13 +192,16 @@ class CourseScreen extends StatelessWidget {
         // in the middle of the parent.
         child: ListView(
           children: <Widget>[
-            LearnDetailInfo(title: title, streak: 10, steps: 3, maxSteps: 10,),
+            LearnDetailInfo(
+              title: title,
+              streak: 10,
+              steps: 3,
+              maxSteps: 10,
+            ),
             const Course(),
-
           ],
         ),
       ),
     );
-
   }
 }

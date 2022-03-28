@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 // widgetクラスとstateクラスのセットで表される
 // widgetクラス
 class MyHomePage extends StatefulWidget {
@@ -56,7 +55,6 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
 
 // stateクラス
 class _MyHomePageState extends State<MyHomePage> {
@@ -89,23 +87,18 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         middle: Text(widget.title),
-        border: Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
+        border:
+            Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
-
-    bottomNavigationBar: BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label:  'Learn'
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.doorbell),
-            label: 'Emergency'
-          ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Learn'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Account',
+              icon: Icon(Icons.doorbell), label: 'Emergency'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Account',
           ),
         ],
         selectedItemColor: Colors.red[900],
