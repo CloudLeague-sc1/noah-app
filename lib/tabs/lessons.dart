@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:noah/tabs/detail_page.dart';
 
+// TODO change class name
+
 class LearnDetailInfo extends StatelessWidget {
   const LearnDetailInfo({
     Key? key,
@@ -60,9 +62,9 @@ class LearnDetailInfo extends StatelessWidget {
   }
 }
 
-class CourseContent extends StatelessWidget {
-  const CourseContent({Key? key, required this.title, required this.text})
-      : super(key: key);
+class LessonContent extends StatelessWidget {
+  const LessonContent({Key? key, required this.title, required this.text}) : super(key: key);
+
   final String title, text;
 
   @override
@@ -150,7 +152,7 @@ class _CourseState extends State<Course> {
             title: const Text('地震とは'),
             content: Container(
               alignment: Alignment.centerLeft,
-              child: const CourseContent(
+              child: const LessonContent(
                 title: "地震とは",
                 text: "HogeHoge",
               ),
@@ -159,7 +161,7 @@ class _CourseState extends State<Course> {
             title: const Text('緊急地震速報'),
             content: Container(
               alignment: Alignment.centerLeft,
-              child: const CourseContent(
+              child: const LessonContent(
                 title: "緊急地震速報",
                 text: "Hogehoge",
               ),
