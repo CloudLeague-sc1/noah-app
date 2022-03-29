@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noah/models/domain/course.dart';
 import 'package:noah/tabs/setting_tab.dart';
 import 'package:noah/tabs/emergency_tab.dart';
 import 'package:noah/tabs/learn_tab.dart';
 import 'package:provider/provider.dart';
+import 'package:noah/models/domain/toc.dart';
+import 'package:noah/models/asset_interfaces.dart';
 
 void main() {
-  runApp(
-    const MyApp()
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -68,11 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    LearnTab(),
-    EmergencyTab(),
-    SettingTab(),
-  ];
+  Future<List<CourseWithMetadata>> loadContents() async {
+    final tocJson = await loadJsonAsset("contents/toc.json");
+    final tocModel = Toc.fromJson(tocJson);
+    final samples = await tocModel.getSamples();
+    return samples;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +84,23 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+    final List<Widget> _widgetOptions = <Widget>[
+      FutureBuilder(
+          future: loadContents(),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<CourseWithMetadata>> snapshot) {
+            if (snapshot.hasData) {
+              return LearnTab(courses: snapshot.data!);
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return const Center(child: CircularProgressIndicator());
+          }),
+      EmergencyTab(),
+      SettingTab(),
+    ];
+
     return Scaffold(
       appBar: CupertinoNavigationBar(
         // Here we take the value from the MyHomePage object that was created by
