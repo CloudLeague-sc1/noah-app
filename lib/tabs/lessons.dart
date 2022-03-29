@@ -5,7 +5,38 @@ import 'package:noah/tabs/detail_page.dart';
 import 'package:noah/tabs/learn_tab.dart';
 import 'package:noah/models/multilingual_text_util.dart';
 
-// TODO change class name
+class ProgressContainer extends StatelessWidget {
+  const ProgressContainer({
+    Key? key,
+    required this.name,
+    required this.progress,
+    required this.courseColor,
+  });
+  final String name, progress;
+  final Color courseColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
+      child: Column(
+          children: [
+            Text(
+              progress,
+              style: TextStyle(color: courseColor, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              name,
+              style: TextStyle(color: courseColor),
+            ),
+          ],
+        ),
+    );
+  }
+}
+
+
 
 class LearnDetailInfo extends StatelessWidget {
   const LearnDetailInfo({
@@ -18,46 +49,62 @@ class LearnDetailInfo extends StatelessWidget {
 
   final String title;
   final int streak, steps, maxSteps;
+  final courseColor = Colors.lightGreen;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300,
-      height: 100,
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: [BoxShadow(
+            color: Colors.black12,
+            blurRadius: 5.0,
+            spreadRadius: 1.0,
+            offset: Offset(5, 5)
+        )],
+      ),
+      margin: const EdgeInsets.all(20),
       child: Column(children: <Widget>[
         Row(
           children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        title,
+                        style: Theme.of(context).textTheme.headline6,
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      ProgressContainer(name: "days streak", progress: streak.toString(), courseColor: courseColor),
+                      ProgressContainer(name: "steps", progress: steps.toString()+"/"+maxSteps.toString(), courseColor: courseColor)
+                    ],
+                  )
+                ],
+              ),
+            ),
             Container(
               margin: const EdgeInsets.all(20),
               child: const Icon(
                 Icons.favorite,
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Column(
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.headline6,
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    "days streak",
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ],
-              ),
-            )
           ],
         ),
         Container(
           alignment: Alignment.bottomCenter,
-          color: Colors.blue,
           child: LinearProgressIndicator(
-            value: 0.1,
-            color: Colors.red,
-            minHeight: 20,
+            value: steps/maxSteps,
+            color: courseColor,
+            minHeight: 10,
+            backgroundColor: Colors.white,
           ),
         ),
       ]),
@@ -85,30 +132,29 @@ class LessonContent extends StatelessWidget {
                     )),
           );
         },
-        child: SizedBox(
-          width: 300,
-          height: 100,
+        child: Container(
+          padding: const EdgeInsets.all(10),
           child: Column(children: <Widget>[
             Row(
               children: [
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      Text(
+                        "寝られたまはぬままには、〔源氏〕「我は、かく人に憎まれてもならはぬを、今宵なむ、初めて憂しと世を思ひ知りぬれば、恥づかしくて、ながらふまじうこそ、思ひなりぬれ」などのたまへば、涙をさへこぼして臥したり。いとらうたしと思す。",
+                        style: Theme.of(context).textTheme.bodyText1,
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  ),
+                ),
                 Container(
                   margin: const EdgeInsets.all(20),
                   child: const Icon(
                     Icons.favorite,
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Text(
-                        "Foobar",
-                        style: Theme.of(context).textTheme.bodyText1,
-                        textAlign: TextAlign.left,
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           ]),
@@ -120,8 +166,8 @@ class LessonContent extends StatelessWidget {
 
 class CourseRoadmap extends StatefulWidget {
   final CourseInformation courseInfo;
-
-  const CourseRoadmap({Key? key,required this.courseInfo}) : super(key: key);
+  const CourseRoadmap({Key? key,required this.courseInfo, required this.courseColor}) : super(key: key);
+  final Color courseColor;
   @override
   State<StatefulWidget> createState() => _CourseRoadmapState();
 }
@@ -135,7 +181,10 @@ class _CourseRoadmapState extends State<CourseRoadmap> {
     final courseInfo = widget.courseInfo;
     final lessons = courseInfo.course.lessons;
     final lessonButtons=lessons.map((e) =>  Step(
-            title: Text(getLocaleText(e.title, context)),
+            title: Text(
+              getLocaleText(e.title, context),
+              style: TextStyle(color: widget.courseColor),
+            ),
             content: Container(
               alignment: Alignment.centerLeft,
               child: LessonContent(
@@ -145,6 +194,9 @@ class _CourseRoadmapState extends State<CourseRoadmap> {
 
     return Stepper(
       currentStep: _index,
+      controlsBuilder: (BuildContext context, ControlsDetails details) {
+        return Container();
+      },
       onStepCancel: () {
         if (_index > 0) {
           setState(() {
@@ -196,7 +248,7 @@ class CourseScreen extends StatelessWidget {
               steps: 3,
               maxSteps: 10,
             ),
-            CourseRoadmap(courseInfo:courseInfo),
+            CourseRoadmap(courseInfo:courseInfo, courseColor: Colors.lightGreen,),
           ],
         ),
       ),
