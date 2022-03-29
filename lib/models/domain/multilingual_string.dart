@@ -15,6 +15,10 @@ class MultilingualText {
     en = json['en'].toString();
   }
   MultilingualText.empty();
+
+  String getByLocale(String locale) {
+    return locale.contains("ja") ? ja : en;
+  }
 }
 
 typedef RichText = List<RichTextInner>;

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'lessons.dart';
+import 'package:noah/models/domain/course.dart';
 
 // 学習分野のボタンを表示するウィジェット
 // TODO 画面遷移先の追加
@@ -10,9 +11,9 @@ class CourseButton extends StatelessWidget {
   const CourseButton({Key? key, required this.buttonInfo}) : super(key: key);
   final CourseInformation buttonInfo;
 
-
   @override
   Widget build(BuildContext context) {
+
     return Card(
       margin: const EdgeInsets.all(20),
       child: InkWell(
@@ -21,72 +22,70 @@ class CourseButton extends StatelessWidget {
           Navigator.push(
             context,
             CupertinoPageRoute(
-                builder: (context) => const CourseScreen(
-                      title: "地震",
+                builder: (context) => CourseScreen(
+                      courseInfo:buttonInfo,
                     )),
           );
         },
         child: SizedBox(
           height: 72,
-          child: Column(
-              children: <Widget>[
-                Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.all(10),
-                      child: const Icon(Icons.emergency, size: 40,),
-                    ),
-
-                    Expanded(
-                      flex: 1,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child:Text(
-                                buttonInfo.name,
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          Align(
-                            child: Container(
-                              margin: const EdgeInsets.all(5),
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Text((buttonInfo.progress*100).toInt().toString() + "%",
-                                style: TextStyle(
-                                  color: buttonInfo.buttonColor,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-
-                          ),
-
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+          child: Column(children: <Widget>[
+            Row(
+              children: [
                 Container(
-                  alignment: Alignment.bottomCenter,
-                  color: Colors.blue,
-                  child: LinearProgressIndicator(
-                    value: buttonInfo.progress,
-                    color: buttonInfo.buttonColor,
-                    minHeight: 12,
+                  margin: const EdgeInsets.all(10),
+                  child: const Icon(
+                    Icons.emergency,
+                    size: 40,
                   ),
                 ),
-              ]
-          ),
-
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            buttonInfo.course.title.getByLocale(Localizations.localeOf(context).languageCode),
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text(
+                            (buttonInfo.progress * 100).toInt().toString() +
+                                "%",
+                            style: TextStyle(
+                              color: buttonInfo.buttonColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              color: Colors.blue,
+              child: LinearProgressIndicator(
+                value: buttonInfo.progress,
+                color: buttonInfo.buttonColor,
+                minHeight: 12,
+              ),
+            ),
+          ]),
         ),
       ),
     );
@@ -95,13 +94,12 @@ class CourseButton extends StatelessWidget {
 
 // Interface of course button
 class CourseInformation {
-  final String name;
+  final Course course;
   final double progress;
   final Color buttonColor;
 
-  CourseInformation(this.name, this.progress, this.buttonColor);
+  CourseInformation(this.course, this.progress, this.buttonColor);
 }
-
 
 // Course data sample
 // Docs: https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple
@@ -168,32 +166,32 @@ class CourseInformation {
 //   }
 // }
 
-
 class LearnTab extends StatelessWidget {
-  const LearnTab({Key? key}) : super(key: key);
+  final List<CourseWithMetadata> courses;
+  const LearnTab({Key? key, required this.courses}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final courseButtons = courses
+        .map((e) => CourseButton(
+            buttonInfo: CourseInformation(e.course, 0.2, Colors.blue)))
+        .toList();
+
     return Column(
+      children: <Widget>[
+        Text(
+          'In Progress',
+          style: Theme.of(context).textTheme.headline4,
+        ),
+        Text(
+          "Review",
+          style: Theme.of(context).textTheme.headline4,
+        ),
 
+        // const Expanded(child: CourseButtons(title: "In Progress"),),
 
-        children: <Widget>[
-          Text(
-            'In Progress',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-
-          Text(
-            "Review",
-            style: Theme.of(context).textTheme.headline4,
-          ),
-
-          // const Expanded(child: CourseButtons(title: "In Progress"),),
-          
-          CourseButton(buttonInfo: CourseInformation("TSUNAMI", 0.2, Colors.lightBlue))
-
-
-        ],
-      );
+        ...courseButtons
+      ],
+    );
   }
 }
