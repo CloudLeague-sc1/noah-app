@@ -22,8 +22,8 @@ class CourseButton extends StatelessWidget {
           Navigator.push(
             context,
             CupertinoPageRoute(
-                builder: (context) => const CourseScreen(
-                      title: "地震",
+                builder: (context) => CourseScreen(
+                      courseInfo:buttonInfo,
                     )),
           );
         },

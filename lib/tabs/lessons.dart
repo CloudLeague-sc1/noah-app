@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noah/models/domain/lesson.dart';
 import 'package:noah/tabs/detail_page.dart';
+import 'package:noah/tabs/learn_tab.dart';
+import 'package:noah/models/multilingual_text_util.dart';
 
 // TODO change class name
 
@@ -63,10 +66,10 @@ class LearnDetailInfo extends StatelessWidget {
 }
 
 class LessonContent extends StatelessWidget {
-  const LessonContent({Key? key, required this.title, required this.text})
+  const LessonContent({Key? key, required this.lesson})
       : super(key: key);
 
-  final String title, text;
+  final Lesson lesson;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +81,7 @@ class LessonContent extends StatelessWidget {
             context,
             CupertinoPageRoute(
                 builder: (context) => LearningScreen(
-                      title: title,
+                      title: getLocaleText(lesson.title,context),
                     )),
           );
         },
@@ -99,7 +102,7 @@ class LessonContent extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        text,
+                        "Foobar",
                         style: Theme.of(context).textTheme.bodyText1,
                         textAlign: TextAlign.left,
                       ),
@@ -116,8 +119,9 @@ class LessonContent extends StatelessWidget {
 }
 
 class CourseRoadmap extends StatefulWidget {
-  const CourseRoadmap({Key? key}) : super(key: key);
+  final CourseInformation courseInfo;
 
+  const CourseRoadmap({Key? key,required this.courseInfo}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _CourseRoadmapState();
 }
@@ -127,6 +131,18 @@ class _CourseRoadmapState extends State<CourseRoadmap> {
 
   @override
   Widget build(BuildContext context) {
+
+    final courseInfo = widget.courseInfo;
+    final lessons = courseInfo.course.lessons;
+    final lessonButtons=lessons.map((e) =>  Step(
+            title: Text(getLocaleText(e.title, context)),
+            content: Container(
+              alignment: Alignment.centerLeft,
+              child: LessonContent(
+                lesson: e,
+              ),
+            ))).toList();
+
     return Stepper(
       currentStep: _index,
       onStepCancel: () {
@@ -148,34 +164,15 @@ class _CourseRoadmapState extends State<CourseRoadmap> {
           _index = index;
         });
       },
-      steps: [
-        Step(
-            title: const Text('地震とは'),
-            content: Container(
-              alignment: Alignment.centerLeft,
-              child: const LessonContent(
-                title: "地震とは",
-                text: "HogeHoge",
-              ),
-            )),
-        Step(
-            title: const Text('緊急地震速報'),
-            content: Container(
-              alignment: Alignment.centerLeft,
-              child: const LessonContent(
-                title: "緊急地震速報",
-                text: "Hogehoge",
-              ),
-            )),
-      ],
+      steps: lessonButtons,
     );
   }
 }
 
 class CourseScreen extends StatelessWidget {
-  const CourseScreen({Key? key, required this.title}) : super(key: key);
+  const CourseScreen({Key? key, required this.courseInfo}) : super(key: key);
 
-  final String title;
+  final CourseInformation courseInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +180,7 @@ class CourseScreen extends StatelessWidget {
       appBar: CupertinoNavigationBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        middle: Text(title),
+        middle: Text(getLocaleText(courseInfo.course.title,context)),
         border:
             Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
       ),
@@ -194,12 +191,12 @@ class CourseScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             LearnDetailInfo(
-              title: title,
+              title: getLocaleText(courseInfo.course.title,context),
               streak: 10,
               steps: 3,
               maxSteps: 10,
             ),
-            const CourseRoadmap(),
+            CourseRoadmap(courseInfo:courseInfo),
           ],
         ),
       ),
