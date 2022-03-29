@@ -63,7 +63,8 @@ class LearnDetailInfo extends StatelessWidget {
 }
 
 class LessonContent extends StatelessWidget {
-  const LessonContent({Key? key, required this.title, required this.text}) : super(key: key);
+  const LessonContent({Key? key, required this.title, required this.text})
+      : super(key: key);
 
   final String title, text;
 
@@ -114,14 +115,14 @@ class LessonContent extends StatelessWidget {
   }
 }
 
-class Course extends StatefulWidget {
-  const Course({Key? key}) : super(key: key);
+class CourseRoadmap extends StatefulWidget {
+  const CourseRoadmap({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _CourseState();
+  State<StatefulWidget> createState() => _CourseRoadmapState();
 }
 
-class _CourseState extends State<Course> {
+class _CourseRoadmapState extends State<CourseRoadmap> {
   int _index = 0;
 
   @override
@@ -198,7 +199,7 @@ class CourseScreen extends StatelessWidget {
               steps: 3,
               maxSteps: 10,
             ),
-            const Course(),
+            const CourseRoadmap(),
           ],
         ),
       ),
