@@ -31,14 +31,9 @@ class _PagesCarouselState extends State<PagesCarousel> {
       // Page controller
       Row(
         children: [
-          TextButton(
-            onPressed: !tryPrev() ? null : prev,
-            child: const Text('<'),
-          ),
-          TextButton(
-            onPressed: !tryNext() ? null : next,
-            child: const Text('>'),
-          )
+          PageScrollButton(onPressed: !tryPrev() ? null : prev,icon: Icons.arrow_back_ios),
+          const Spacer(),
+          PageScrollButton(onPressed: !tryNext() ? null : next,icon: Icons.arrow_forward_ios),
         ],
       )
     ]);
@@ -66,5 +61,23 @@ class _PagesCarouselState extends State<PagesCarousel> {
       current--;
     }
     return tryPrev();
+  }
+}
+
+
+class PageScrollButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final IconData icon;
+  const PageScrollButton({Key? key, required this.onPressed , required this.icon}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 4),
+      child:IconButton(
+            onPressed: onPressed,
+            icon: Icon(icon),
+          )
+    );
   }
 }
