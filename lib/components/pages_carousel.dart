@@ -48,7 +48,6 @@ class _PagesCarouselState extends State<PagesCarousel> {
 
   bool next() {
     if (current + 1 < widget.pages.length) {
-      current++;
       carouselController.nextPage();
     }
     return tryNext();
@@ -61,7 +60,6 @@ class _PagesCarouselState extends State<PagesCarousel> {
   bool prev() {
     if (current > 0) {
       carouselController.previousPage();
-      current--;
     }
     return tryPrev();
   }
