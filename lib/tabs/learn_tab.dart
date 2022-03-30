@@ -13,7 +13,6 @@ class CourseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       margin: const EdgeInsets.all(20),
       child: InkWell(
@@ -23,7 +22,7 @@ class CourseButton extends StatelessWidget {
             context,
             CupertinoPageRoute(
                 builder: (context) => CourseScreen(
-                      courseInfo:buttonInfo,
+                      courseInfo: buttonInfo,
                     )),
           );
         },
@@ -47,7 +46,8 @@ class CourseButton extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            buttonInfo.course.title.getByLocale(Localizations.localeOf(context).languageCode),
+                            buttonInfo.course.title.getByLocale(
+                                Localizations.localeOf(context).languageCode),
                             textAlign: TextAlign.left,
                             style: const TextStyle(
                               fontSize: 20,

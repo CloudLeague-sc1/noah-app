@@ -21,22 +21,20 @@ class ProgressContainer extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       margin: const EdgeInsets.all(5),
       child: Column(
-          children: [
-            Text(
-              progress,
-              style: TextStyle(color: courseColor, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              name,
-              style: TextStyle(color: courseColor),
-            ),
-          ],
-        ),
+        children: [
+          Text(
+            progress,
+            style: TextStyle(color: courseColor, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            name,
+            style: TextStyle(color: courseColor),
+          ),
+        ],
+      ),
     );
   }
 }
-
-
 
 class LearnDetailInfo extends StatelessWidget {
   const LearnDetailInfo({
@@ -56,12 +54,13 @@ class LearnDetailInfo extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        boxShadow: [BoxShadow(
-            color: Colors.black12,
-            blurRadius: 5.0,
-            spreadRadius: 1.0,
-            offset: Offset(5, 5)
-        )],
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5.0,
+              spreadRadius: 1.0,
+              offset: Offset(5, 5))
+        ],
       ),
       margin: const EdgeInsets.all(20),
       child: Column(children: <Widget>[
@@ -83,8 +82,15 @@ class LearnDetailInfo extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      ProgressContainer(name: "days streak", progress: streak.toString(), courseColor: courseColor),
-                      ProgressContainer(name: "steps", progress: steps.toString()+"/"+maxSteps.toString(), courseColor: courseColor)
+                      ProgressContainer(
+                          name: "days streak",
+                          progress: streak.toString(),
+                          courseColor: courseColor),
+                      ProgressContainer(
+                          name: "steps",
+                          progress:
+                              steps.toString() + "/" + maxSteps.toString(),
+                          courseColor: courseColor)
                     ],
                   )
                 ],
@@ -101,7 +107,7 @@ class LearnDetailInfo extends StatelessWidget {
         Container(
           alignment: Alignment.bottomCenter,
           child: LinearProgressIndicator(
-            value: steps/maxSteps,
+            value: steps / maxSteps,
             color: courseColor,
             minHeight: 10,
             backgroundColor: Colors.white,
@@ -113,8 +119,7 @@ class LearnDetailInfo extends StatelessWidget {
 }
 
 class LessonContent extends StatelessWidget {
-  const LessonContent({Key? key, required this.lesson})
-      : super(key: key);
+  const LessonContent({Key? key, required this.lesson}) : super(key: key);
 
   final Lesson lesson;
 
@@ -166,7 +171,9 @@ class LessonContent extends StatelessWidget {
 
 class CourseRoadmap extends StatefulWidget {
   final CourseInformation courseInfo;
-  const CourseRoadmap({Key? key,required this.courseInfo, required this.courseColor}) : super(key: key);
+  const CourseRoadmap(
+      {Key? key, required this.courseInfo, required this.courseColor})
+      : super(key: key);
   final Color courseColor;
   @override
   State<StatefulWidget> createState() => _CourseRoadmapState();
@@ -177,10 +184,10 @@ class _CourseRoadmapState extends State<CourseRoadmap> {
 
   @override
   Widget build(BuildContext context) {
-
     final courseInfo = widget.courseInfo;
     final lessons = courseInfo.course.lessons;
-    final lessonButtons=lessons.map((e) =>  Step(
+    final lessonButtons = lessons
+        .map((e) => Step(
             title: Text(
               getLocaleText(e.title, context),
               style: TextStyle(color: widget.courseColor),
@@ -190,7 +197,8 @@ class _CourseRoadmapState extends State<CourseRoadmap> {
               child: LessonContent(
                 lesson: e,
               ),
-            ))).toList();
+            )))
+        .toList();
 
     return Stepper(
       currentStep: _index,
@@ -232,7 +240,7 @@ class CourseScreen extends StatelessWidget {
       appBar: CupertinoNavigationBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        middle: Text(getLocaleText(courseInfo.course.title,context)),
+        middle: Text(getLocaleText(courseInfo.course.title, context)),
         border:
             Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
       ),
@@ -243,12 +251,15 @@ class CourseScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             LearnDetailInfo(
-              title: getLocaleText(courseInfo.course.title,context),
+              title: getLocaleText(courseInfo.course.title, context),
               streak: 10,
               steps: 3,
               maxSteps: 10,
             ),
-            CourseRoadmap(courseInfo:courseInfo, courseColor: Colors.lightGreen,),
+            CourseRoadmap(
+              courseInfo: courseInfo,
+              courseColor: Colors.lightGreen,
+            ),
           ],
         ),
       ),
