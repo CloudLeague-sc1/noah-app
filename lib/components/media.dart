@@ -27,9 +27,8 @@ class Audio extends StatefulWidget {
 class _AudioState extends State<Audio> {
   final player = AudioPlayer();
   AudioCache? cache;
-
-  bool isStarted = false;
-  bool isPlaying = false;
+  
+  PlayerState playerState = PlayerState.STOPPED;
   Duration duration = const Duration(milliseconds: 0);
   Duration position = const Duration(milliseconds: 0);
 
@@ -41,7 +40,9 @@ class _AudioState extends State<Audio> {
     setState(() => position = pos);
   }
 
-  void updatePlayerState(Duration) {}
+  void updatePlayerState(s) {
+    setState(() => playerState = s);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,27 +66,42 @@ class _AudioState extends State<Audio> {
 // Buttons
         Row(
           children: [
-            TextButton(
-                onPressed: playAndPause,
-                child: isPlaying ? const Text('||') : const Text('>'))
+            IconButton(onPressed: playOrPause, icon: Icon(getButtonIcon())),
           ],
         )
       ],
     );
   }
 
-  void playAndPause() {
-    if (isPlaying) {
-      player.pause();
-    } else {
-      if (isStarted) {
-        player.resume();
-      } else {
+  void playOrPause() {
+    switch(playerState){
+      case PlayerState.STOPPED:
         cache!.play(widget.src);
-        isStarted = true;
-      }
+        break;
+      case PlayerState.PLAYING:
+        player.pause();
+        break;
+      case PlayerState.PAUSED:
+         player.resume();
+        break;
+      case PlayerState.COMPLETED:
+        cache!.play(widget.src);
+        break;
     }
-
-    setState(() => {isPlaying = !isPlaying});
   }
+
+  IconData getButtonIcon() {
+    switch(playerState){
+      case PlayerState.STOPPED:
+        return Icons.play_arrow;
+      case PlayerState.PLAYING:
+        return Icons.pause;
+      case PlayerState.PAUSED:
+        return Icons.play_arrow;
+      case PlayerState.COMPLETED:
+        return Icons.replay;
+    }
+  }
+
+
 }
