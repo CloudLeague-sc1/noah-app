@@ -1,4 +1,5 @@
 import 'rich_text.dart';
+
 class MultilingualText {
   MultilingualText(this.ja, this.en);
   String ja = "";
@@ -37,7 +38,7 @@ class MultilingualRichText {
     en = json['en'].map(parseRichText).toList().cast<RichTextInner>();
   }
 
-   getByLocale(String locale) {
+  getByLocale(String locale) {
     return locale.contains("ja") ? ja : en;
   }
 }

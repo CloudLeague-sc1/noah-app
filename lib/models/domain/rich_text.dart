@@ -1,4 +1,5 @@
 typedef RichText = List<RichTextInner>;
+
 class RichTextInner {
   RichText inner = [];
   RichTextInner(this.inner);

@@ -17,7 +17,7 @@ class _PagesCarouselState extends State<PagesCarousel> {
     return Column(children: [
       // Carousel
       Expanded(
-        //TODO: Using a CarouselSlider just for fun, but maybe it's bad way to display pages
+          //TODO: Using a CarouselSlider just for fun, but maybe it's bad way to display pages
           child: CarouselSlider(
               items: widget.pages,
               options: CarouselOptions(

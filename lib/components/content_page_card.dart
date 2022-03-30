@@ -12,12 +12,11 @@ class ContentPageCard extends PageCard {
 
   @override
   Widget build(BuildContext context) {
-
     final contents = <Widget>[];
     contents.add(NoahRichText(model: getLocaleRichText(page.text, context)));
 
     final mediaModel = page.media;
-    if(mediaModel is Media){
+    if (mediaModel is Media) {
       contents.add(renderMedia(mediaModel));
     }
 
