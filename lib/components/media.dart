@@ -27,7 +27,6 @@ class Audio extends StatefulWidget {
 class _AudioState extends State<Audio> {
   final player = AudioPlayer();
   AudioCache? cache;
-  
   PlayerState playerState = PlayerState.STOPPED;
   Duration duration = const Duration(milliseconds: 0);
   Duration position = const Duration(milliseconds: 0);
@@ -45,16 +44,20 @@ class _AudioState extends State<Audio> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     cache = AudioCache(prefix: 'contents/media/', fixedPlayer: player);
     cache!.load(widget.src);
 
     player.onAudioPositionChanged.listen(updatePosition);
     player.onDurationChanged.listen(updateDuration);
     player.onPlayerStateChanged.listen(updatePlayerState);
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Column(
-      children: [
+      children: [        
         // Seekbar
         ProgressBar(
           progress: position,
@@ -63,18 +66,15 @@ class _AudioState extends State<Audio> {
             player.seek(duration);
           },
         ),
-// Buttons
-        Row(
-          children: [
-            IconButton(onPressed: playOrPause, icon: Icon(getButtonIcon())),
-          ],
-        )
+        
+        // Buttons
+        IconButton(onPressed: playOrPause, icon: Icon(getButtonIcon())),
       ],
     );
   }
 
   void playOrPause() {
-    switch(playerState){
+    switch (playerState) {
       case PlayerState.STOPPED:
         cache!.play(widget.src);
         break;
@@ -82,7 +82,7 @@ class _AudioState extends State<Audio> {
         player.pause();
         break;
       case PlayerState.PAUSED:
-         player.resume();
+        player.resume();
         break;
       case PlayerState.COMPLETED:
         cache!.play(widget.src);
@@ -91,7 +91,7 @@ class _AudioState extends State<Audio> {
   }
 
   IconData getButtonIcon() {
-    switch(playerState){
+    switch (playerState) {
       case PlayerState.STOPPED:
         return Icons.play_arrow;
       case PlayerState.PLAYING:
@@ -102,6 +102,4 @@ class _AudioState extends State<Audio> {
         return Icons.replay;
     }
   }
-
-
 }
