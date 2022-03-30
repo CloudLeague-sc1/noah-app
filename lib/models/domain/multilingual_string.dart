@@ -35,6 +35,10 @@ class MultilingualRichText {
     ja = json['ja'].map(parseRichText).toList().cast<RichTextInner>();
     en = json['en'].map(parseRichText).toList().cast<RichTextInner>();
   }
+
+  RichText getByLocale(String locale) {
+    return locale.contains("ja") ? ja : en;
+  }
 }
 
 RichTextInner parseRichText(dynamic json) {
