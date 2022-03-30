@@ -16,24 +16,27 @@ class _PagesCarouselState extends State<PagesCarousel> {
   Widget build(BuildContext context) {
     return Column(children: [
       // Carousel
-      CarouselSlider(
-          items: widget.pages,
-          options: CarouselOptions(
-            aspectRatio: 2.0,
-            enlargeCenterPage: true,
-            onPageChanged: (index, reason) {
-              setState(() {
-                current = index;
-              });
-            },
-          ),
-          carouselController: carouselController),
+      Expanded(
+          child: CarouselSlider(
+              items: widget.pages,
+              options: CarouselOptions(
+                enlargeCenterPage: true,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    current = index;
+                  });
+                },
+              ),
+              carouselController: carouselController)),
       // Page controller
       Row(
         children: [
-          PageScrollButton(onPressed: !tryPrev() ? null : prev,icon: Icons.arrow_back_ios),
+          PageScrollButton(
+              onPressed: !tryPrev() ? null : prev, icon: Icons.arrow_back_ios),
           const Spacer(),
-          PageScrollButton(onPressed: !tryNext() ? null : next,icon: Icons.arrow_forward_ios),
+          PageScrollButton(
+              onPressed: !tryNext() ? null : next,
+              icon: Icons.arrow_forward_ios),
         ],
       )
     ]);
@@ -64,20 +67,20 @@ class _PagesCarouselState extends State<PagesCarousel> {
   }
 }
 
-
 class PageScrollButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final IconData icon;
-  const PageScrollButton({Key? key, required this.onPressed , required this.icon}) : super(key: key);
-  
+  const PageScrollButton(
+      {Key? key, required this.onPressed, required this.icon})
+      : super(key: key);
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 4),
-      child:IconButton(
-            onPressed: onPressed,
-            icon: Icon(icon),
-          )
-    );
+        margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 4),
+        child: IconButton(
+          onPressed: onPressed,
+          icon: Icon(icon),
+        ));
   }
 }
