@@ -10,15 +10,16 @@ class PageBase {
   PageBase(PageType type);
 }
 
-class Page extends PageBase {
+class Content extends PageBase {
+  // Its original name was "Page" but it was changed to "Content" to avoid namespace conflict with flutter's Page<T> class.
   MultilingualRichText text = MultilingualRichText.empty();
   Media? media;
   Annotation? annotation;
   List<ReferenceItem>? references;
 
-  Page(this.text, this.media, this.annotation, this.references)
+  Content(this.text, this.media, this.annotation, this.references)
       : super(PageType.page);
-  Page.fromJson(Map<String, dynamic> json) : super(PageType.page) {
+  Content.fromJson(Map<String, dynamic> json) : super(PageType.page) {
     if (json['text'] is Map<String, dynamic>) {
       text = MultilingualRichText.fromJson(json['text']);
     }
@@ -97,7 +98,7 @@ PageBase parsePage(Map<String, dynamic> json) {
   final type = json['type'];
   switch (type) {
     case 'page':
-      return Page.fromJson(json);
+      return Content.fromJson(json);
     case 'quiz':
       return parseQuiz(json);
     default:
