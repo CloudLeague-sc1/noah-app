@@ -27,6 +27,7 @@ class Audio extends StatefulWidget {
 class _AudioState extends State<Audio> {
   final player = AudioPlayer();
   AudioCache? cache;
+
   PlayerState playerState = PlayerState.STOPPED;
   Duration duration = const Duration(milliseconds: 0);
   Duration position = const Duration(milliseconds: 0);
@@ -57,7 +58,7 @@ class _AudioState extends State<Audio> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [        
+      children: [
         // Seekbar
         ProgressBar(
           progress: position,
@@ -66,7 +67,7 @@ class _AudioState extends State<Audio> {
             player.seek(duration);
           },
         ),
-        
+
         // Buttons
         IconButton(onPressed: playOrPause, icon: Icon(getButtonIcon())),
       ],
