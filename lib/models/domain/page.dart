@@ -61,12 +61,12 @@ class QuizOption {
   }
 }
 
-class MultipleChoiceQuize extends Quiz {
+class MultipleChoiceQuiz extends Quiz {
   MultilingualRichText question = MultilingualRichText.empty();
   List<QuizOption> options = [];
-  MultipleChoiceQuize(this.question, this.options)
+  MultipleChoiceQuiz(this.question, this.options)
       : super(QuizType.multipleChoice);
-  MultipleChoiceQuize.fromJson(Map<String, dynamic> json)
+  MultipleChoiceQuiz.fromJson(Map<String, dynamic> json)
       : super(QuizType.multipleChoice) {
     question = MultilingualRichText.fromJson(json['question']);
     options = json['options']
@@ -84,7 +84,7 @@ PageBase parseQuiz(Map<String, dynamic> json) {
   final type = json['quiz_type'];
   switch (type) {
     case 'multiple_choice':
-      return MultipleChoiceQuize.fromJson(json);
+      return MultipleChoiceQuiz.fromJson(json);
     default:
       throw Exception("Unknown page type: $type");
   }
