@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'lessons.dart';
+import 'course_roadmap.dart';
 import 'package:noah/models/domain/course.dart';
 
 // 学習分野のボタンを表示するウィジェット

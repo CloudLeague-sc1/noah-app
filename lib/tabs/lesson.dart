@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noah/models/domain/lesson.dart';
+import 'package:noah/models/multilingual_text_util.dart';
 
-class LearningScreen extends StatelessWidget {
-  const LearningScreen({Key? key, required this.title}) : super(key: key);
-  final String title;
+class LessonScreen extends StatelessWidget {
+  const LessonScreen({Key? key, required this.lesson}) : super(key: key);
+  final Lesson lesson;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class LearningScreen extends StatelessWidget {
       appBar: CupertinoNavigationBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        middle: Text(title),
+        middle: Text(getLocaleText(lesson.title,context)),
         border:
             Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
       ),
@@ -22,7 +24,7 @@ class LearningScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             Text(
-              title,
+              getLocaleText(lesson.title,context),
               style: Theme.of(context).textTheme.headline4,
             ),
           ],

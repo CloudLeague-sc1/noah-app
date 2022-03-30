@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:noah/models/domain/lesson.dart';
-import 'package:noah/tabs/detail_page.dart';
+import 'package:noah/tabs/lesson.dart';
 import 'package:noah/tabs/learn_tab.dart';
 import 'package:noah/models/multilingual_text_util.dart';
 
@@ -127,8 +127,8 @@ class LessonContent extends StatelessWidget {
           Navigator.push(
             context,
             CupertinoPageRoute(
-                builder: (context) => LearningScreen(
-                      title: getLocaleText(lesson.title,context),
+                builder: (context) => LessonScreen(
+                      lesson: lesson,
                     )),
           );
         },
