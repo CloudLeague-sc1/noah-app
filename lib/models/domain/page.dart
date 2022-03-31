@@ -32,11 +32,10 @@ class Content extends PageBase {
       annotation = parseAnnotation(json['annotation']);
     }
 
-    if (json['references'] is List) {
-      references = json['references']
-          .map((e) => parseReferenceItem)
-          .toList()
-          .cast<ReferenceItem>();
+    final refs = json['references'];
+    if (refs is List) {
+      references =
+          refs.map((e) => parseReferenceItem(e)).toList().cast<ReferenceItem>();
     }
   }
 }

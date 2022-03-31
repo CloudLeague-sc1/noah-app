@@ -9,7 +9,12 @@ class WebItem extends ReferenceItem {
   String url = "";
   String title = "";
   String asOf = "";
-  WebItem(this.url) : super(ReferenceType.web);
+  WebItem(this.url, this.title, this.asOf) : super(ReferenceType.web);
+  WebItem.fromJson(Map<String, dynamic> json) : super(ReferenceType.web) {
+    url = json['url'];
+    title = json['title'];
+    asOf = json['as_of'];
+  }
 }
 
 ReferenceItem parseReferenceItem(Map<String, dynamic> json) {
@@ -19,7 +24,7 @@ ReferenceItem parseReferenceItem(Map<String, dynamic> json) {
   final type = json['type'];
   switch (type) {
     case 'web':
-      return WebItem(json['url']);
+      return WebItem.fromJson(json);
     default:
       throw Exception("Unknown reference type `$type`");
   }
