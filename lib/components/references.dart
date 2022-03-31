@@ -9,10 +9,26 @@ class ReferenceBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = refs.map(renderReferenceItem).toList();
-    return Column(
-      children: items,
-      mainAxisAlignment: MainAxisAlignment.start,
-    );
+    return Container(
+      margin: const EdgeInsets.all(10),
+        child: Column(
+      children: [const ReferenceBoxCaption(), ...items],
+    ));
+  }
+}
+
+class ReferenceBoxCaption extends StatelessWidget {
+  const ReferenceBoxCaption({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: const [
+      Text('References',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ))
+    ]);
   }
 }
 
@@ -33,10 +49,17 @@ class WebReferenceItem extends StatelessWidget {
     final title = item.title;
     final url = item.url;
 
-    return TextButton(
-        child: Text("$title ($asOf)"),
-        onPressed: () {
+    return Row(children: [
+      const Text('・'),
+      GestureDetector(
+        onTap: () {
           launch(url);
-        });
+        },
+        child: Text(
+          " $title ($asOf)",
+          style: TextStyle(color: Colors.blue.shade800),
+        ),
+      )
+    ]);
   }
 }
