@@ -9,6 +9,32 @@ class SummaryPageCard extends PageCard {
 
   @override
   Widget build(BuildContext context) {
-    return UnorderdList(items: items);
+    return Column(children: [
+      // Caption
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              child: const Text("Summary", //TODO: i18n
+                  style: TextStyle(fontSize: 30)),
+              margin: const EdgeInsets.only(bottom: 20))
+        ],
+      ),
+      // Summary content
+      Expanded(child: UnorderdList(items: items)),
+
+      // Complete button
+      Row(
+        children: [
+          Expanded(
+              child: ElevatedButton(
+            onPressed: () {
+              //TODO: Complete button process
+            },
+            child: const Text('Complete Lesson'),
+          ))
+        ],
+      )
+    ]);
   }
 }
