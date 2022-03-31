@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noah/components/noah_rich_text.dart';
 import '../models/domain/page.dart';
 import '../models/multilingual_text_util.dart';
 import '../components/page_card.dart';
@@ -24,8 +25,29 @@ class MultipleChoiceQuizPageCard extends QuizPageCard {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(getLocaleRichText(page.question, context).toString()),
+    final options =
+        page.options.map((e) => MultipleChoiceQuizOption(option: e)).toList();
+    return Column(
+      children: [
+        NoahRichText(model: getLocaleRichText(page.question, context)),
+        ...options
+      ],
     );
+  }
+}
+
+class MultipleChoiceQuizOption extends StatelessWidget {
+  final QuizOption option;
+  const MultipleChoiceQuizOption({Key? key, required this.option})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        onPressed: () {
+          //TODO: Implement animation
+          print(option.correct);
+        },
+        child: Text(getLocaleText(option.label, context)));
   }
 }
