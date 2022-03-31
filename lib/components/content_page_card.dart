@@ -7,6 +7,7 @@ import 'noah_rich_text.dart';
 import '../models/domain/media.dart';
 import 'media.dart';
 import 'annotation.dart';
+import 'references.dart';
 
 class ContentPageCard extends PageCard {
   final Content page;
@@ -27,10 +28,16 @@ class ContentPageCard extends PageCard {
       contents.add(renderAnnotation(annotation));
     }
 
-    return Container(child:Column(
-      children: contents,
-    ),
-    margin: const EdgeInsets.all(20),
+    final refs = page.references;
+    if (refs != null && refs.isNotEmpty) {
+      contents.add(ReferenceBox(refs: refs));
+    }
+
+    return Container(
+      child: Column(
+        children: contents,
+      ),
+      margin: const EdgeInsets.all(20),
     );
   }
 }
