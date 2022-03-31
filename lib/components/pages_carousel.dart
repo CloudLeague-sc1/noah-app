@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:noah/models/domain/lesson.dart';
+
+import '../models/domain/page.dart';
+
+import '../components/page_card.dart';
+import '../components/content_page_card.dart';
+import '../components/quiz_page_card.dart';
+import '../components/summary_page_card.dart';
+
+PageCard renderPage(PageBase page, VoidCallback nextPage) {
+  if (page is Content) {
+    return ContentPageCard(page: page);
+  } else if (page is Quiz) {
+    return renderQuizPageCard(page, nextPage);
+  } else {
+    throw Exception('Unknown page type');
+  }
+}
 
 class PagesCarousel extends StatefulWidget {
-  final List<Widget> pages;
-  const PagesCarousel({Key? key, required this.pages}) : super(key: key);
+  final Lesson lesson;
+  const PagesCarousel({Key? key, required this.lesson}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _PagesCarouselState();
 }
@@ -11,15 +29,23 @@ class PagesCarousel extends StatefulWidget {
 class _PagesCarouselState extends State<PagesCarousel> {
   int current = 0;
   CarouselController carouselController = CarouselController();
+  List<Widget> pageWidgets = [];
 
   @override
   Widget build(BuildContext context) {
+    setState(() => {
+          pageWidgets = [
+            ...widget.lesson.pages.map((e) => renderPage(e, next)).toList(),
+            SummaryPageCard(items: widget.lesson.summary)
+          ]
+        });
+
     return Column(children: [
       // Carousel
       Expanded(
           //TODO: Using a CarouselSlider just for fun, but maybe it's bad way to display pages
           child: CarouselSlider(
-              items: widget.pages,
+              items: pageWidgets,
               options: CarouselOptions(
                 aspectRatio: 0.67,
                 enableInfiniteScroll: false,
@@ -45,11 +71,11 @@ class _PagesCarouselState extends State<PagesCarousel> {
   }
 
   bool tryNext() {
-    return current + 1 < widget.pages.length;
+    return current + 1 < pageWidgets.length;
   }
 
   bool next() {
-    if (current + 1 < widget.pages.length) {
+    if (current + 1 < pageWidgets.length) {
       carouselController.nextPage();
     }
     return tryNext();

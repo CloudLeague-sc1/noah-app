@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:noah/models/domain/multilingual_string.dart';
 import 'media.dart';
 import 'annotation.dart';
