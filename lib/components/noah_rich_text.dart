@@ -27,6 +27,7 @@ class NoahRichText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RichText(
+      softWrap: true,
       text: TextSpan(
         children: traverseRichText(model, RichTextStyle.clear())
             .map(renderRichTextSpan)

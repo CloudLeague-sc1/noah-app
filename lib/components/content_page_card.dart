@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/domain/page.dart';
+import '../models/domain/annotation.dart';
 import '../models/multilingual_text_util.dart';
 import '../components/page_card.dart';
 import 'noah_rich_text.dart';
 import '../models/domain/media.dart';
 import 'media.dart';
+import 'annotation.dart';
 
 class ContentPageCard extends PageCard {
   final Content page;
@@ -20,8 +22,15 @@ class ContentPageCard extends PageCard {
       contents.add(renderMedia(mediaModel));
     }
 
-    return Column(
+    final annotation = page.annotation;
+    if (annotation is Annotation) {
+      contents.add(renderAnnotation(annotation));
+    }
+
+    return Container(child:Column(
       children: contents,
+    ),
+    margin: const EdgeInsets.all(20),
     );
   }
 }
