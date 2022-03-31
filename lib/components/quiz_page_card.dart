@@ -66,7 +66,8 @@ class QuizCommentBody extends StatelessWidget {
 
 class QuizCommentCloseButton extends StatelessWidget {
   final VoidCallback? onPressed;
-  const QuizCommentCloseButton({Key? key, this.onPressed}) : super(key: key);
+  final String text;
+  const QuizCommentCloseButton({Key? key, required this.text,this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,7 @@ class QuizCommentCloseButton extends StatelessWidget {
         child: Row(children: [
           Expanded(
               child: ElevatedButton(
-            child: const Text('Try again'),
+            child: Text(text),
             onPressed: () {
               Navigator.pop(context);
               onPressed?.call();
@@ -115,6 +116,7 @@ class MultipleChoiceQuizPageCard extends QuizPageCard {
                 Expanded(child: QuizCommentBody(comment: comment)),
                 // Close button
                 QuizCommentCloseButton(
+                  text: isCorrect? 'Next':'Try again',
                   onPressed: () {
                     if (isCorrect) {
                       nextPage?.call();
