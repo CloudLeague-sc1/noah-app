@@ -26,7 +26,7 @@ abstract class AnnotationBox extends StatelessWidget {
     return Flexible(
       child: Column(children: [
         Container(
-          margin: const EdgeInsets.only(top:16),
+            margin: const EdgeInsets.only(top: 16),
             padding: const EdgeInsets.all(16.0),
             child: NoahRichText(model: getLocaleRichText(text, context)),
             decoration: BoxDecoration(
