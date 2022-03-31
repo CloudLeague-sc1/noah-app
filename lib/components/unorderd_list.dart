@@ -10,7 +10,9 @@ class UnorderdList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final list = items
-        .map((e)=>UnorderdListItem(item: e,))
+        .map((e) => UnorderdListItem(
+              item: e,
+            ))
         .toList();
     return ListView(children: list);
   }
