@@ -75,7 +75,7 @@ class QuizCommentCloseButton extends StatelessWidget {
         child: Row(children: [
           Expanded(
               child: ElevatedButton(
-            child: const Text('Close BottomSheet'),
+            child: const Text('Try again'),
             onPressed: () {
               Navigator.pop(context);
               onPressed?.call();
