@@ -30,6 +30,7 @@ class SummaryPageCard extends PageCard {
               child: ElevatedButton(
             onPressed: () {
               //TODO: Complete button process
+              Navigator.pop(context);
             },
             child: const Text('Complete Lesson'),
           ))
