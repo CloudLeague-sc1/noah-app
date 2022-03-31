@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../models/domain/lesson.dart';
+import '../models/multilingual_text_util.dart';
+import '../components/pages_carousel.dart';
 
-class LearningScreen extends StatelessWidget {
-  const LearningScreen({Key? key, required this.title}) : super(key: key);
-  final String title;
+class LessonScreen extends StatelessWidget {
+  const LessonScreen({Key? key, required this.lesson}) : super(key: key);
+  final Lesson lesson;
 
   @override
   Widget build(BuildContext context) {
@@ -11,21 +14,15 @@ class LearningScreen extends StatelessWidget {
       appBar: CupertinoNavigationBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        middle: Text(title),
+        middle: Text(getLocaleText(lesson.title, context)),
         border:
             Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
       ),
-      body: Align(
-        alignment: Alignment.topLeft,
+      body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: ListView(
-          children: <Widget>[
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        child: PagesCarousel(
+          lesson: lesson,
         ),
       ),
     );

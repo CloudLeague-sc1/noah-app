@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:noah/models/domain/multilingual_string.dart';
 import 'media.dart';
 import 'annotation.dart';
@@ -10,15 +11,16 @@ class PageBase {
   PageBase(PageType type);
 }
 
-class Page extends PageBase {
+class Content extends PageBase {
+  // Its original name was "Page" but it was changed to "Content" to avoid namespace conflict with flutter's Page<T> class.
   MultilingualRichText text = MultilingualRichText.empty();
   Media? media;
   Annotation? annotation;
   List<ReferenceItem>? references;
 
-  Page(this.text, this.media, this.annotation, this.references)
+  Content(this.text, this.media, this.annotation, this.references)
       : super(PageType.page);
-  Page.fromJson(Map<String, dynamic> json) : super(PageType.page) {
+  Content.fromJson(Map<String, dynamic> json) : super(PageType.page) {
     if (json['text'] is Map<String, dynamic>) {
       text = MultilingualRichText.fromJson(json['text']);
     }
@@ -31,11 +33,10 @@ class Page extends PageBase {
       annotation = parseAnnotation(json['annotation']);
     }
 
-    if (json['references'] is List) {
-      references = json['references']
-          .map((e) => parseReferenceItem)
-          .toList()
-          .cast<ReferenceItem>();
+    final refs = json['references'];
+    if (refs is List) {
+      references =
+          refs.map((e) => parseReferenceItem(e)).toList().cast<ReferenceItem>();
     }
   }
 }
@@ -60,12 +61,12 @@ class QuizOption {
   }
 }
 
-class MultipleChoiceQuize extends Quiz {
+class MultipleChoiceQuiz extends Quiz {
   MultilingualRichText question = MultilingualRichText.empty();
   List<QuizOption> options = [];
-  MultipleChoiceQuize(this.question, this.options)
+  MultipleChoiceQuiz(this.question, this.options)
       : super(QuizType.multipleChoice);
-  MultipleChoiceQuize.fromJson(Map<String, dynamic> json)
+  MultipleChoiceQuiz.fromJson(Map<String, dynamic> json)
       : super(QuizType.multipleChoice) {
     question = MultilingualRichText.fromJson(json['question']);
     options = json['options']
@@ -83,7 +84,7 @@ PageBase parseQuiz(Map<String, dynamic> json) {
   final type = json['quiz_type'];
   switch (type) {
     case 'multiple_choice':
-      return MultipleChoiceQuize.fromJson(json);
+      return MultipleChoiceQuiz.fromJson(json);
     default:
       throw Exception("Unknown page type: $type");
   }
@@ -97,7 +98,7 @@ PageBase parsePage(Map<String, dynamic> json) {
   final type = json['type'];
   switch (type) {
     case 'page':
-      return Page.fromJson(json);
+      return Content.fromJson(json);
     case 'quiz':
       return parseQuiz(json);
     default:
