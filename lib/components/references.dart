@@ -9,7 +9,10 @@ class ReferenceBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = refs.map(renderReferenceItem).toList();
-    return Column(children: items,mainAxisAlignment: MainAxisAlignment.start,);
+    return Column(
+      children: items,
+      mainAxisAlignment: MainAxisAlignment.start,
+    );
   }
 }
 
@@ -30,8 +33,10 @@ class WebReferenceItem extends StatelessWidget {
     final title = item.title;
     final url = item.url;
 
-    return TextButton(child: Text("$title ($asOf)"),onPressed: (){
-      launch(url);
-    });
+    return TextButton(
+        child: Text("$title ($asOf)"),
+        onPressed: () {
+          launch(url);
+        });
   }
 }
