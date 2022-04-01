@@ -177,7 +177,7 @@ class LearnTab extends StatelessWidget {
             buttonInfo: CourseInformation(e.course, 0.2, Colors.blue)))
         .toList();
 
-    return Column(
+    return ListView(
       children: <Widget>[
         Text(
           'In Progress',
