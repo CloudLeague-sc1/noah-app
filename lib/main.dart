@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<List<CourseWithMetadata>> loadContents() async {
     final tocJson = await loadJsonAsset("contents/toc.json");
     final tocModel = Toc.fromJson(tocJson);
-    final samples = await tocModel.getSamples();
+    final samples = await tocModel.getArticles();
     return samples;
   }
 
