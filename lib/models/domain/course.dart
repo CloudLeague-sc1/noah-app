@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'multilingual_string.dart';
 import 'lesson.dart';
 

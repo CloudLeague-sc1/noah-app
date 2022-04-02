@@ -16,6 +16,10 @@ class MultilingualText {
     ja = json['ja'].toString();
     en = json['en'].toString();
   }
+  Map<String, dynamic> toJson() => {
+    'ja': ja,
+    'en': en,
+  };
   MultilingualText.empty();
 
   String getByLocale(String locale) {

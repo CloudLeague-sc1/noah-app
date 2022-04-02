@@ -19,3 +19,19 @@ class Lesson {
         .cast<MultilingualRichText>();
   }
 }
+
+class LessonProgress {
+  MultilingualText title = MultilingualText.empty();
+  bool complete = false;
+
+  LessonProgress(this.title, this.complete);
+
+  Map toJson() => {
+    'title': title.toJson(),
+    'complete': complete,
+  };
+
+  LessonProgress.fromJson(Map<String, dynamic> json)
+  : title = json['title'],
+  complete = json['complete'];
+}
