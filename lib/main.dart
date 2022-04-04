@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noah/constants/color.dart';
 import 'package:noah/models/domain/course.dart';
 import 'package:noah/tabs/setting_tab.dart';
 import 'package:noah/tabs/emergency_tab.dart';
@@ -107,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         middle: Text(widget.title),
         border:
-            Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade300)),
+            const Border(bottom: BorderSide(width: 2.0, color: plainColor)),
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
@@ -120,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Account',
           ),
         ],
-        selectedItemColor: Colors.red[900],
+        selectedItemColor: themeColor,
         onTap: _onItemTapped,
         currentIndex: _selectedIndex,
       ),

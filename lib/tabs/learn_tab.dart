@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noah/constants/color.dart';
 import 'package:provider/provider.dart';
 import 'course_roadmap.dart';
 import 'package:noah/models/domain/course.dart';
@@ -34,8 +35,9 @@ class CourseButton extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.all(10),
                   child: const Icon(
-                    Icons.emergency,
+                    Icons.circle,
                     size: 40,
+                    color: accentColor,
                   ),
                 ),
                 Expanded(
@@ -78,10 +80,11 @@ class CourseButton extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.bottomCenter,
-              color: Colors.blue,
+              color: accentColor,
               child: LinearProgressIndicator(
                 value: buttonInfo.progress,
                 color: buttonInfo.buttonColor,
+                backgroundColor: plainColor,
                 minHeight: 12,
               ),
             ),
@@ -101,70 +104,6 @@ class CourseInformation {
   CourseInformation(this.course, this.progress, this.buttonColor);
 }
 
-// Course data sample
-// Docs: https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple
-// Good Article: https://programming-dojo.com/%E3%80%90flutter%E5%85%A5%E9%96%80%E3%80%91provider%E3%81%AEconsumer%E3%81%AE%E8%AA%AC%E6%98%8E%E3%81%A8%E4%BD%BF%E3%81%84%E6%96%B9/
-// class CourseData extends ChangeNotifier {
-//   final List<CourseInformation> _courseData = [CourseInformation("Earthquake", 0.4), CourseInformation("TSUNAMI", 0.1)];
-//
-//   UnmodifiableListView<CourseInformation> get courseData {
-//     return UnmodifiableListView(_courseData);
-//   }
-//
-//   void addData(String name, double progress) {
-//     _courseData.add(
-//       CourseInformation(name, progress),
-//     );
-//     notifyListeners();
-//   }
-//
-//   void deleteData(CourseInformation courseInformation) {
-//     _courseData.remove(courseInformation);
-//     notifyListeners();
-//   }
-//
-//   int get dataCount {
-//     return _courseData.length;
-//   }
-// }
-//
-//
-// class CourseButtons extends StatelessWidget {
-//   const CourseButtons({Key? key, required this.title}) : super(key: key);
-//
-//   final String title;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//
-//       child: Align(
-//         alignment: Alignment.topLeft,
-//         child: ListView(
-//           children: <Widget>[
-//             Text(
-//               title,
-//               style: Theme.of(context).textTheme.headline4,
-//             ),
-//             Consumer<CourseData>(
-//               builder: (context, courseData, child) {
-//                 return ListView.builder(
-//                   itemBuilder: (context, index) {
-//                     final courseButtonData = courseData.courseData[index];
-//                     return CourseButton(buttonInfo: courseButtonData);
-//                   },
-//                   itemCount: courseData.dataCount,
-//                 );
-//               },
-//             ),
-//             CourseButton(buttonInfo: CourseInformation("fire", 0.2))
-//           ],
-//         ),
-//       ),
-//     );
-//
-//   }
-// }
 
 class LearnTab extends StatelessWidget {
   final List<CourseWithMetadata> courses;
@@ -174,19 +113,19 @@ class LearnTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final courseButtons = courses
         .map((e) => CourseButton(
-            buttonInfo: CourseInformation(e.course, 0.2, Colors.blue)))
+            buttonInfo: CourseInformation(e.course, 0.2, themeColor)))
         .toList();
 
     return ListView(
       children: <Widget>[
-        Text(
-          'In Progress',
-          style: Theme.of(context).textTheme.headline4,
-        ),
-        Text(
-          "Review",
-          style: Theme.of(context).textTheme.headline4,
-        ),
+        // Text(
+        //   'In Progress',
+        //   style: Theme.of(context).textTheme.headline4,
+        // ),
+        // Text(
+        //   "Review",
+        //   style: Theme.of(context).textTheme.headline4,
+        // ),
 
         // const Expanded(child: CourseButtons(title: "In Progress"),),
 

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:noah/constants/color.dart';
 import 'package:noah/models/domain/lesson.dart';
 import 'package:noah/tabs/lesson.dart';
 import 'package:noah/tabs/learn_tab.dart';
@@ -47,7 +48,8 @@ class LearnDetailInfo extends StatelessWidget {
 
   final String title;
   final int streak, steps, maxSteps;
-  final courseColor = Colors.lightGreen;
+  final subColor = accentColor;
+  final mainColor = themeColor;
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +87,12 @@ class LearnDetailInfo extends StatelessWidget {
                       ProgressContainer(
                           name: "days streak",
                           progress: streak.toString(),
-                          courseColor: courseColor),
+                          courseColor: subColor),
                       ProgressContainer(
                           name: "steps",
                           progress:
                               steps.toString() + "/" + maxSteps.toString(),
-                          courseColor: courseColor)
+                          courseColor: subColor)
                     ],
                   )
                 ],
@@ -108,7 +110,7 @@ class LearnDetailInfo extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child: LinearProgressIndicator(
             value: steps / maxSteps,
-            color: courseColor,
+            color: mainColor,
             minHeight: 10,
             backgroundColor: Colors.white,
           ),
@@ -147,7 +149,7 @@ class LessonContent extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        "寝られたまはぬままには、〔源氏〕「我は、かく人に憎まれてもならはぬを、今宵なむ、初めて憂しと世を思ひ知りぬれば、恥づかしくて、ながらふまじうこそ、思ひなりぬれ」などのたまへば、涙をさへこぼして臥したり。いとらうたしと思す。",
+                        "Go to the Lesson",
                         style: Theme.of(context).textTheme.bodyText1,
                         textAlign: TextAlign.left,
                       ),
@@ -157,7 +159,7 @@ class LessonContent extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.all(20),
                   child: const Icon(
-                    Icons.favorite,
+                    Icons.chevron_right,
                   ),
                 ),
               ],
@@ -258,7 +260,7 @@ class CourseScreen extends StatelessWidget {
             ),
             CourseRoadmap(
               courseInfo: courseInfo,
-              courseColor: Colors.lightGreen,
+              courseColor: themeColor,
             ),
           ],
         ),

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:noah/models/domain/lesson.dart';
 import 'package:noah/models/domain/multilingual_string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:noah/models/domain/course.dart';
 
 class Progress {
   MultilingualText courseTitle;
