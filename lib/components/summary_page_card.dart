@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noah/constants/color.dart';
 import '../models/domain/multilingual_string.dart';
 import '../components/page_card.dart';
 import 'unorderd_list.dart';
@@ -28,6 +29,7 @@ class SummaryPageCard extends PageCard {
         children: [
           Expanded(
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: themeColor),
             onPressed: () {
               //TODO: Complete button process
               Navigator.pop(context);

@@ -117,8 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.doorbell), label: 'Emergency'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Account',
+            icon: Icon(Icons.public),
+            label: 'Language',
           ),
         ],
         selectedItemColor: themeColor,

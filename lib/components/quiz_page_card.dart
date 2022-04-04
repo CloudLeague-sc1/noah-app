@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:noah/components/noah_rich_text.dart';
+import 'package:noah/constants/color.dart';
 import 'package:noah/models/domain/multilingual_string.dart';
 import '../models/domain/page.dart';
 import '../models/multilingual_text_util.dart';
@@ -169,7 +170,7 @@ class MultipleChoiceQuizOption extends StatelessWidget {
                       onPressed!(option.correct, option.comment, context);
                     }
                   },
-                  child: Text(getLocaleText(option.label, context)))))
+                  child: Text(getLocaleText(option.label, context), style: const TextStyle(color: themeColor),))))
     ]);
   }
 }

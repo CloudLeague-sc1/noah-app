@@ -1,13 +1,10 @@
-import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:noah/constants/color.dart';
-import 'package:provider/provider.dart';
 import 'course_roadmap.dart';
 import 'package:noah/models/domain/course.dart';
 
 // 学習分野のボタンを表示するウィジェット
-// TODO 画面遷移先の追加
 class CourseButton extends StatelessWidget {
   const CourseButton({Key? key, required this.buttonInfo}) : super(key: key);
   final CourseInformation buttonInfo;
@@ -35,7 +32,7 @@ class CourseButton extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.all(10),
                   child: const Icon(
-                    Icons.circle,
+                    Icons.sailing,
                     size: 40,
                     color: accentColor,
                   ),
@@ -53,7 +50,6 @@ class CourseButton extends StatelessWidget {
                             textAlign: TextAlign.left,
                             style: const TextStyle(
                               fontSize: 20,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
@@ -68,7 +64,7 @@ class CourseButton extends StatelessWidget {
                             style: TextStyle(
                               color: buttonInfo.buttonColor,
                               fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                              // fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
