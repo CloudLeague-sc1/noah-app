@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         middle: Text(widget.title),
         border:
-            const Border(bottom: BorderSide(width: 2.0, color: plainColor)),
+            const Border(bottom: BorderSide(width: 2.0, color: themeColor)),
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
